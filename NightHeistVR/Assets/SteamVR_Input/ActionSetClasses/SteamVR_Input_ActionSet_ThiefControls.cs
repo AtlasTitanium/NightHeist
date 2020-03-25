@@ -17,7 +17,7 @@ namespace Valve.VR
     public class SteamVR_Input_ActionSet_ThiefControls : Valve.VR.SteamVR_ActionSet
     {
         
-        public virtual SteamVR_Action_Vector3 Thumbpad
+        public virtual SteamVR_Action_Vector2 Thumbpad
         {
             get
             {
@@ -25,11 +25,35 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean NewAction
+        public virtual SteamVR_Action_Boolean Interact
         {
             get
             {
-                return SteamVR_Actions.thiefControls_NewAction;
+                return SteamVR_Actions.thiefControls_Interact;
+            }
+        }
+        
+        public virtual SteamVR_Action_Pose ThiefPose
+        {
+            get
+            {
+                return SteamVR_Actions.thiefControls_ThiefPose;
+            }
+        }
+        
+        public virtual SteamVR_Action_Single Grab
+        {
+            get
+            {
+                return SteamVR_Actions.thiefControls_Grab;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean Pinch
+        {
+            get
+            {
+                return SteamVR_Actions.thiefControls_Pinch;
             }
         }
     }

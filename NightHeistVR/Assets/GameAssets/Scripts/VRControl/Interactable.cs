@@ -12,14 +12,14 @@ public class Interactable : MonoBehaviour
     public event Action drop;
 
     public void Pickup() {
-        pickup.Invoke();
+        pickup?.Invoke();
     }
 
     public void Use() {
-        use.Invoke();
+        use?.Invoke();
     }
 
     public void Drop() {
-        drop.Invoke();
+        drop?.Invoke();
     }
 }

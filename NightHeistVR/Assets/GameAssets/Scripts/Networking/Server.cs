@@ -41,6 +41,7 @@ public class Server : MonoBehaviour
     }
     
     private void WorkServer(){
+        Debug.Log("getting data");
         DataStreamReader stream;
         for (int i = 0; i < m_Connections.Length; i++){
             if (!m_Connections[i].IsCreated)
@@ -50,6 +51,7 @@ public class Server : MonoBehaviour
             while ((cmd = m_Driver.PopEventForConnection(m_Connections[i], out stream)) != NetworkEvent.Type.Empty){
                 switch (cmd){
                     case NetworkEvent.Type.Data:
+                        Debug.Log("got data");
                         HandleData(stream, i);
                     break;
 
@@ -80,8 +82,10 @@ public class Server : MonoBehaviour
     
     private void HandleData(DataStreamReader stream, int connectionIndex){
         var readerCtx = default(DataStreamReader.Context);
-        ServerEvent eventName = (ServerEvent)stream.ReadUInt(ref readerCtx);
-        ServerEventManager.ServerEvents[eventName](this, stream, ref readerCtx, m_Connections[connectionIndex]);
+        float info = stream.ReadFloat(ref readerCtx);
+        Debug.Log(info);
+        //ServerEvent eventName = (ServerEvent)stream.ReadUInt(ref readerCtx);
+        //ServerEventManager.ServerEvents[eventName](this, stream, ref readerCtx, m_Connections[connectionIndex]);
     }
     
     private void PlayerDisconnect(int playerIndex){

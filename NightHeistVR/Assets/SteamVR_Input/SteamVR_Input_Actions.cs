@@ -55,9 +55,15 @@ namespace Valve.VR
         
         private static SteamVR_Action_Pose p_mixedreality_ExternalCamera;
         
-        private static SteamVR_Action_Vector3 p_thiefControls_Thumbpad;
+        private static SteamVR_Action_Vector2 p_thiefControls_Thumbpad;
         
-        private static SteamVR_Action_Boolean p_thiefControls_NewAction;
+        private static SteamVR_Action_Boolean p_thiefControls_Interact;
+        
+        private static SteamVR_Action_Pose p_thiefControls_ThiefPose;
+        
+        private static SteamVR_Action_Single p_thiefControls_Grab;
+        
+        private static SteamVR_Action_Boolean p_thiefControls_Pinch;
         
         public static SteamVR_Action_Boolean default_InteractUI
         {
@@ -211,19 +217,43 @@ namespace Valve.VR
             }
         }
         
-        public static SteamVR_Action_Vector3 thiefControls_Thumbpad
+        public static SteamVR_Action_Vector2 thiefControls_Thumbpad
         {
             get
             {
-                return SteamVR_Actions.p_thiefControls_Thumbpad.GetCopy<SteamVR_Action_Vector3>();
+                return SteamVR_Actions.p_thiefControls_Thumbpad.GetCopy<SteamVR_Action_Vector2>();
             }
         }
         
-        public static SteamVR_Action_Boolean thiefControls_NewAction
+        public static SteamVR_Action_Boolean thiefControls_Interact
         {
             get
             {
-                return SteamVR_Actions.p_thiefControls_NewAction.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_thiefControls_Interact.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Pose thiefControls_ThiefPose
+        {
+            get
+            {
+                return SteamVR_Actions.p_thiefControls_ThiefPose.GetCopy<SteamVR_Action_Pose>();
+            }
+        }
+        
+        public static SteamVR_Action_Single thiefControls_Grab
+        {
+            get
+            {
+                return SteamVR_Actions.p_thiefControls_Grab.GetCopy<SteamVR_Action_Single>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean thiefControls_Pinch
+        {
+            get
+            {
+                return SteamVR_Actions.p_thiefControls_Pinch.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
@@ -250,7 +280,10 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.thiefControls_Thumbpad,
-                    SteamVR_Actions.thiefControls_NewAction};
+                    SteamVR_Actions.thiefControls_Interact,
+                    SteamVR_Actions.thiefControls_ThiefPose,
+                    SteamVR_Actions.thiefControls_Grab,
+                    SteamVR_Actions.thiefControls_Pinch};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -271,14 +304,18 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera,
                     SteamVR_Actions.thiefControls_Thumbpad,
-                    SteamVR_Actions.thiefControls_NewAction};
+                    SteamVR_Actions.thiefControls_Interact,
+                    SteamVR_Actions.thiefControls_ThiefPose,
+                    SteamVR_Actions.thiefControls_Grab,
+                    SteamVR_Actions.thiefControls_Pinch};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
                     SteamVR_Actions.default_Haptic};
             Valve.VR.SteamVR_Input.actionsPose = new Valve.VR.SteamVR_Action_Pose[] {
                     SteamVR_Actions.default_Pose,
-                    SteamVR_Actions.mixedreality_ExternalCamera};
+                    SteamVR_Actions.mixedreality_ExternalCamera,
+                    SteamVR_Actions.thiefControls_ThiefPose};
             Valve.VR.SteamVR_Input.actionsBoolean = new Valve.VR.SteamVR_Action_Boolean[] {
                     SteamVR_Actions.default_InteractUI,
                     SteamVR_Actions.default_Teleport,
@@ -290,15 +327,17 @@ namespace Valve.VR
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
-                    SteamVR_Actions.thiefControls_NewAction};
+                    SteamVR_Actions.thiefControls_Interact,
+                    SteamVR_Actions.thiefControls_Pinch};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.default_Squeeze,
-                    SteamVR_Actions.buggy_Throttle};
+                    SteamVR_Actions.buggy_Throttle,
+                    SteamVR_Actions.thiefControls_Grab};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
                     SteamVR_Actions.platformer_Move,
-                    SteamVR_Actions.buggy_Steering};
-            Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[] {
+                    SteamVR_Actions.buggy_Steering,
                     SteamVR_Actions.thiefControls_Thumbpad};
+            Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[0];
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[] {
                     SteamVR_Actions.default_SkeletonLeftHand,
                     SteamVR_Actions.default_SkeletonRightHand};
@@ -318,7 +357,9 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.thiefControls_Thumbpad,
-                    SteamVR_Actions.thiefControls_NewAction};
+                    SteamVR_Actions.thiefControls_Interact,
+                    SteamVR_Actions.thiefControls_Grab,
+                    SteamVR_Actions.thiefControls_Pinch};
         }
         
         private static void PreInitActions()
@@ -342,8 +383,11 @@ namespace Valve.VR
             SteamVR_Actions.p_buggy_Brake = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/buggy/in/Brake")));
             SteamVR_Actions.p_buggy_Reset = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/buggy/in/Reset")));
             SteamVR_Actions.p_mixedreality_ExternalCamera = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/mixedreality/in/ExternalCamera")));
-            SteamVR_Actions.p_thiefControls_Thumbpad = ((SteamVR_Action_Vector3)(SteamVR_Action.Create<SteamVR_Action_Vector3>("/actions/ThiefControls/in/Thumbpad")));
-            SteamVR_Actions.p_thiefControls_NewAction = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/ThiefControls/in/NewAction")));
+            SteamVR_Actions.p_thiefControls_Thumbpad = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/ThiefControls/in/Thumbpad")));
+            SteamVR_Actions.p_thiefControls_Interact = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/ThiefControls/in/Interact")));
+            SteamVR_Actions.p_thiefControls_ThiefPose = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/ThiefControls/in/ThiefPose")));
+            SteamVR_Actions.p_thiefControls_Grab = ((SteamVR_Action_Single)(SteamVR_Action.Create<SteamVR_Action_Single>("/actions/ThiefControls/in/Grab")));
+            SteamVR_Actions.p_thiefControls_Pinch = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/ThiefControls/in/Pinch")));
         }
     }
 }
