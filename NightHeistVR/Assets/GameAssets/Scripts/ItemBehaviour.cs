@@ -17,6 +17,7 @@ public class ItemBehaviour : MonoBehaviour
 
     private Vector3 artpieceSize;
     private Vector3 spacecubeSize;
+    private Vector3 colliderSize;
     private float lerpNumber;
 
     private void Start() {
@@ -25,6 +26,7 @@ public class ItemBehaviour : MonoBehaviour
 
         artpieceSize = artPiece.transform.localScale;
         spacecubeSize = spaceCube.transform.localScale;
+        colliderSize = artCollider.GetComponent<BoxCollider>().size;
 
         spaceCube.transform.localScale = Vector3.zero;
 
@@ -33,12 +35,10 @@ public class ItemBehaviour : MonoBehaviour
     }
 
     public void PickupArt() {
-        artCollider.enabled = false;
         StartCoroutine(GrabSwitch());
     }
 
     public void DropArt() {
-        artCollider.enabled = true;
         StartCoroutine(DropSwitch());
     }
 
@@ -47,6 +47,7 @@ public class ItemBehaviour : MonoBehaviour
             lerpNumber = i / 10.0f;
             artPiece.transform.localScale = Vector3.Lerp(artpieceSize, spacecubeSize /2, lerpNumber);
             spaceCube.transform.localScale = Vector3.Lerp(Vector3.zero, spacecubeSize, lerpNumber);
+            artCollider.GetComponent<BoxCollider>().size = Vector3.Lerp(colliderSize, Vector3.zero, lerpNumber);
             yield return new WaitForEndOfFrame();
         }
     }
@@ -57,7 +58,9 @@ public class ItemBehaviour : MonoBehaviour
             lerpNumber = i / 10.0f;
             artPiece.transform.localScale = Vector3.Lerp(artpieceSize, spacecubeSize /2, lerpNumber);
             spaceCube.transform.localScale = Vector3.Lerp(Vector3.zero, spacecubeSize, lerpNumber);
+            artCollider.GetComponent<BoxCollider>().size = Vector3.Lerp(colliderSize, Vector3.zero, lerpNumber);
             yield return new WaitForEndOfFrame();
         }
+        
     }
 }

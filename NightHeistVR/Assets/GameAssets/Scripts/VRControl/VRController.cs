@@ -37,6 +37,12 @@ public class VRController : MonoBehaviour
         SnapRotation();
     }
 
+    private void FixedUpdate() {
+        Vector3 movement = Vector3.zero;
+        movement.y -= gravity * Time.deltaTime;
+        characterController.Move(movement * Time.deltaTime);
+    }
+
     private void HandleHeight() {
         float headHeight = Mathf.Clamp(head.localPosition.y, 1, 2);
         characterController.height = headHeight;
@@ -63,8 +69,6 @@ public class VRController : MonoBehaviour
         speed = Mathf.Clamp(speed, -maxSpeed, maxSpeed);
 
         movement += orientation * (speed * Vector3.forward);
-        movement.y -= gravity * Time.deltaTime;
-
         characterController.Move(movement * Time.deltaTime);
     }
 
