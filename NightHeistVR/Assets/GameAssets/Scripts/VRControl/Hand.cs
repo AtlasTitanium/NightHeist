@@ -15,8 +15,8 @@ public class Hand : MonoBehaviour
     
     private FixedJoint joint = null;
 
-    private Interactable currentInteractable = null;
-    private List<Interactable> contactInteractables = new List<Interactable>();
+    private Grabbable currentInteractable = null;
+    private List<Grabbable> contactInteractables = new List<Grabbable>();
 
     private Pinchable currentPinchable = null;
     private List<Pinchable> contactPinchables = new List<Pinchable>();
@@ -41,7 +41,9 @@ public class Hand : MonoBehaviour
 
     public void TriggerDown(SteamVR_Action_Boolean fromAction, SteamVR_Input_Sources fromSource) {
         if (currentInteractable != null) {
-            currentInteractable.Use();
+            if (currentInteractable.GetComponent<Interactable>()) {
+                currentInteractable.GetComponent<Interactable>().Use();
+            }
         }
         Debug.Log("Trigger is down");
     }
@@ -99,9 +101,9 @@ public class Hand : MonoBehaviour
     
     //Get close items
     private void OnTriggerEnter(Collider other) {
-        if (other.GetComponent<Interactable>()) {
-            if (!other.GetComponent<Interactable>().m_ActiveHand) {
-                contactInteractables.Add(other.GetComponent<Interactable>());
+        if (other.GetComponent<Grabbable>()) {
+            if (!other.GetComponent<Grabbable>().m_ActiveHand) {
+                contactInteractables.Add(other.GetComponent<Grabbable>());
             }
         } else if (other.GetComponent<Pinchable>()) {
             contactPinchables.Add(other.GetComponent<Pinchable>());
@@ -109,9 +111,9 @@ public class Hand : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.GetComponent<Interactable>()) {
-            if (contactInteractables.Contains(other.GetComponent<Interactable>())) {
-                contactInteractables.Remove(other.GetComponent<Interactable>());
+        if (other.GetComponent<Grabbable>()) {
+            if (contactInteractables.Contains(other.GetComponent<Grabbable>())) {
+                contactInteractables.Remove(other.GetComponent<Grabbable>());
             }
         } else if (other.GetComponent<Pinchable>()) {
             if (contactPinchables.Contains(other.GetComponent<Pinchable>())) {
@@ -120,12 +122,12 @@ public class Hand : MonoBehaviour
         }
     }
 
-    private Interactable GetNearestInteractable() {
-        Interactable closest = null;
+    private Grabbable GetNearestInteractable() {
+        Grabbable closest = null;
         float minDistance = float.MaxValue;
         float distance = 0.0f;
 
-        foreach (Interactable i in contactInteractables) {
+        foreach (Grabbable i in contactInteractables) {
             distance = (i.transform.position - transform.position).sqrMagnitude;
 
             if(distance < minDistance) {
