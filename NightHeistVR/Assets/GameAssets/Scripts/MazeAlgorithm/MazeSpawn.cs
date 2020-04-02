@@ -10,6 +10,7 @@ public class MazeSpawn : MonoBehaviour
     public GameObject startRoom, endRoom, serverRoom;
     public GameObject[] trapRooms;
     public GameObject[] baseRooms;
+    public int amountOfRooms = 2;
 
     private GameObject currentRoomObj;
     private RoomBehaviour currentRoom;
@@ -21,7 +22,8 @@ public class MazeSpawn : MonoBehaviour
 
     public List<GameObject> builtRooms = new List<GameObject>();
 
-    private void Start() {
+
+    public void Start() {
         mazeParent = new GameObject();
         mazeParent.name = "Maze Parent";
 
@@ -123,22 +125,18 @@ public class MazeSpawn : MonoBehaviour
             currentRoom = currentRoomObj.GetComponent<RoomBehaviour>();
             PlaceRoom();
             return;
-
-            Collider[] objects = Physics.OverlapBox(linkingRoomOffset, linkingRoom.boxCollider.size / 2);
-            foreach (Collider obj in objects) {
-                if (obj.GetComponent<RoomBehaviour>()) {
-                    Debug.Log("remove doors instead of spawn");
-                    Destroy(currentRoomObj);
-                    linkingRoom = obj.GetComponent<RoomBehaviour>();
-                    GetCorrectSides();
-                }
-            }
         } else {
             currentRoomObj.transform.position = linkingRoomOffset;
             builtRooms.Add(currentRoomObj);
             RemoveDoors(currentRoomDoor, connectedRoomDoor);
+            Debug.Log("room placed");
+            amountOfRooms--;
+            if(amountOfRooms <= 0) {
+                CreateEnd();
+            } else {
+                NextRoom();
+            }
         }
-
     }
 
     private void RemoveDoors(GameObject currentRoomDoor, GameObject connectedRoomDoor) {
@@ -148,17 +146,19 @@ public class MazeSpawn : MonoBehaviour
         connectedRoomDoor = null;
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Destroy(mazeParent);
-            mazeParent = null;
-            Start();
-        }
+    public void ResetMaze() {
+        Destroy(mazeParent);
+        mazeParent = null;
+        Start();
+    }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            i++;
-            currentRoom = linkingRoom;
-            PlaceRoom();
-        }
+    public void NextRoom() {
+        i++;
+        currentRoom = linkingRoom;
+        PlaceRoom();
+    }
+
+    public void CreateEnd() {
+        Debug.Log("end created");
     }
 }

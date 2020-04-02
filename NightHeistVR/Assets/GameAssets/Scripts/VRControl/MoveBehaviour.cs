@@ -11,10 +11,10 @@ public class MoveBehaviour : MonoBehaviour
     public Transform head;
     public float moveSpeed;
 
-    private Rigidbody rb;
+    private CharacterController characterController;
 
     private void Awake() {
-        rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
     private void Start() {
@@ -23,6 +23,6 @@ public class MoveBehaviour : MonoBehaviour
 
     public void Move(SteamVR_Action_Vector2 fromAction, SteamVR_Input_Sources fromSource, Vector2 axis, Vector2 delta) {
         Vector3 moveDir = axis.y * head.forward + axis.x * head.right;
-        rb.MovePosition(transform.position + moveDir.normalized * moveSpeed * Time.deltaTime);
+        characterController.Move(transform.position + moveDir.normalized * moveSpeed * Time.deltaTime);
     }
 }
